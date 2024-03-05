@@ -1,22 +1,29 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
-require('dotenv').config();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 let isLightOn = false;
 
-app.post('/turn', (req, res) => {
-  const { light } = req.body;
-  isLightOn = light;
-  console.log(`Light is turned ${isLightOn ? 'on' : 'off'}`);
+app.post('/turnOn', (req, res) => {
+  isLightOn = true;
+  console.log("Light is turned on");
   res.sendStatus(200);
 });
 
-app.get('/', function(req, res) {
-  res.send("<h1>Light is turned</h1>");
+app.post('/turnOff', (req, res) => {
+  isLightOn = false;
+  console.log("Light is turned off");
+  res.sendStatus(200);
+});
+
+app.get('/status', (req, res) => {
+  res.json(isLightOn); // Trả về giá trị isLightOn (true hoặc false)
 });
 
 app.listen(port, () => {
