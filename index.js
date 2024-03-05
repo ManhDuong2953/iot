@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 3000;
-
+require('dotenv').config();
+const port = process.env.PORT;
 app.use(bodyParser.json());
 
 let isLightOn = false;
@@ -15,7 +15,7 @@ app.post('/turn', (req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/test', function(req, res) {
+app.get('/', function(req, res) {
   res.send("<h1>Light is turned</h1>");
 });
 
