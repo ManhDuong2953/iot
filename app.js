@@ -16,7 +16,7 @@ app.post('/', (req, res) => {
 });
 
 app.get('/', function(req, res) {
-  console.log("Loading routes from server");
+  res.send("<h1>Light is turned</h1>");
 });
 
 app.listen(port, () => {
